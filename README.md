@@ -100,17 +100,17 @@ docker rmi f3891eef21e4
 
 # 4. Start node
 
-Let's first configure the run-node.sh script to match your host systems environment.
+Let's first configure the run-node.sh script to match your host system environment.
 
 ```bash
 cd ${HOME}/Cardano-node-docker/node
 sudo nano run-node.sh
 ```
 
-Edit the configuration section according to your preferences.
+Edit the configuration section according to your setup.
 
-Note:If you are running the node as relay node, you can ignore the paramter CN_KEY_PATH.
-Important: Change the directory paths CN_CONFIG_PATH and CN_DB_PATH to the corresponding locations on your host. 
+* Note:If you are running the node as relay node, you can ignore the paramter CN_KEY_PATH.
+* Important: Change the directory paths CN_CONFIG_PATH and CN_DB_PATH to the corresponding locations on your host. 
 
 ```bash
 ##Configuration for relay and block producing node
@@ -130,7 +130,7 @@ CN_VRF_SKEY_PATH="scheduledblocks.vrf.skey"                      ## Name of the 
 CN_KEY_PATH="/home/julienterrier/Cardano-node-docker/node/files/.keys"  ## Path to the folder where the OP certificate and keys are stored on t>
 ```
 
-After applying the changes, save and close the file.
+After making the changes, save and close the file.
 
 `Ctrl+o & ENTER & Ctrl+x`
 
@@ -148,14 +148,48 @@ You can check the running status of the docker container at any time with:
 docker ps -a
 ```
 
-You can also check the logs of the cardano-node live:
+If the docker node started successfully, you might see something like this:
 
 ```bash
-docker logs -f {docker container ID}
+CONTAINER ID   IMAGE                     COMMAND                  CREATED          STATUS                    PORTS                                                                                      NAMES
+fed0cfbf7d86   armada/armada-cn:1.34.1   "bash -c /home/carda…"   12 seconds ago   Up 10 seconds (healthy)   0.0.0.0:3001->3001/tcp, :::3001->3001/tcp, 0.0.0.0:12799->12798/tcp, :::12799->12798/tcp   cardano-node-testnet-1.34.1
+```
+
+You can also check the logs of the running cardano-node:
+
+```bash
+docker logs -f {CONTAINER ID}
 ``` 
 
+To exit the logs press `Ctrl+c`
 
+## Stop/Restart/Delete the Docker Cardano node
 
+To stop the running Cardano node execute:
+
+```bash
+docker stop {CONTAINER ID}
+```
+
+A stopped container can be started again with:
+
+```bash
+docker start {CONTAINER ID}
+```
+
+A stopped container can also be deleted. Once deleted, it can not be started with the command above again.
+
+```bash
+docker rm {CONTAINER ID}
+```
+
+## Monitor the Docker Cardano node with gLiveView
+
+While the docker Cardano node is running, you can monitor its status with the tool gLiveView.
+
+```bash
+docker exec -it {CONTAINER ID} /home/cardano/pi-pool/scripts/gLiveView.sh
+```
 
 
 
