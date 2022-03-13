@@ -100,19 +100,59 @@ docker rmi f3891eef21e4
 
 # 4. Start node
 
-You can now simply start the node with:
+Let's first configure the run-node.sh script to match your host systems environment.
 
 ```bash
 cd ${HOME}/Cardano-node-docker/node
+sudo nano run-node.sh
+```
+
+Edit the configuration section according to your preferences.
+
+Note:If you are running the node as relay node, you can ignore the paramter CN_KEY_PATH.
+Important: Change the directory paths CN_CONFIG_PATH and CN_DB_PATH to the corresponding locations on your host. 
+
+```bash
+##Configuration for relay and block producing node
+CNIMAGENAME="armada/armada-cn"                                   ## Name of the Cardano docker image
+CNVERSION="1.34.1"                                               ## Version of the cardano-node. It must match with the version of the docker i>
+CNNETWORK="testnet"                                              ## Use "mainnet" if connecting node to the mainnet
+CNMODE="relay"                                                   ## Use "bp" if you configure the node as block production node
+CNPORT="3001"                                                    ## Define the port of the node
+CNPROMETHEUS_PORT="12799"                                        ## Define the port for the Prometheus metrics
+CN_CONFIG_PATH="/home/julienterrier/Cardano-node-docker/node/files" ## Path to the folder where the Cardano config files are stored on the host>
+CN_DB_PATH="/home/julienterrier/Cardano-node-docker/node/db"     ## Path to the folder where the Cardano database (blockchain) will be stored o>
+CN_RTS_OPTS="+RTS -N2 -I0.1 -Iw3600 -A64m -AL128M -n4m -F1.1 -H3500M -O3500M -RTS"      ## RTS optimization parameters
+CN_BF_ID="mainnetd9PBzlK7KB7wWko8NTKUwJIsHfvEKNaV"               ## Your blockfrost.io project ID (for ScheduledBlock script)
+CN_POOL_ID="c3e7025ebae638e994c149e5703e82619b31897c9e1d64fc684f81c2"   ## Your stake pool ID (for ScheduledBlock script)
+CN_POOL_TICKER="MINI1"                                           ## Your pool ticker (for ScheduledBlock script)
+CN_VRF_SKEY_PATH="scheduledblocks.vrf.skey"                      ## Name of the vrf.skey file. It must be located in the same directory as CN_K>
+CN_KEY_PATH="/home/julienterrier/Cardano-node-docker/node/files/.keys"  ## Path to the folder where the OP certificate and keys are stored on t>
+```
+
+After applying the changes, save and close the file.
+
+`Ctrl+o & ENTER & Ctrl+x`
+
+You can now run the docker image.
+
+```bash
 sudo ./run-node.sh
 ```
 
-Check the status of the running docker container with:
+## Check the running status of the docker container
+
+You can check the running status of the docker container at any time with:
 
 ```bash
 docker ps -a
 ```
 
+You can also check the logs of the cardano-node live:
+
+```bash
+docker logs -f {docker container ID}
+``` 
 
 
 
