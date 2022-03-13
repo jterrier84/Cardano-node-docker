@@ -8,8 +8,8 @@ donating ₳D₳ to: addr1qygv5fqsfjhfgkx7fhkkegxksx56dsu262vhaxr4mvuukt8uqh7nhj
 
 ## Why using docker image to run a Cardano node?
 
-The elegant thing of a Cardano node deployed as a Docker images is, that it can be installed and started seamlessly straight out-of-the box.
-The day you should decide to remove it, you just have to remove one file - the image. Another advantage is that it can run on any operating 
+The elegant thing of a Cardano node deployed as a Docker image is, that it can be installed and started seamlessly straight out-of-the box.
+The day you should decide to delete it, you just have to remove one file - the image. Another advantage is that it can run on any operating 
 system that has Docker installed. Using this Docker image reduces the complexity and effort of setting up a Cardano node from scratch. 
 It is therefore recommended for less experienced users.
 
@@ -54,6 +54,8 @@ Note: As the configuration files might require modifications over time, it is wa
 rather than have them stored inside the Docker container. The Docker image will then access to these files via file sharing.
 
 ```bash
+sudo mkdir node/db
+sudo mkdir node/files
 cd node/files
 export NODE_CONFIG="testnet"
 export NODE_BUILD_NUM=$(curl https://hydra.iohk.io/job/Cardano/iohk-nix/cardano-deployment/latest-finished/download/1/index.html | grep -e "build" | sed 's/.*build\/\([0-9]*\)\/download.*/\1/g') 
