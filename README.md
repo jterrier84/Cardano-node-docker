@@ -41,8 +41,8 @@ Let's clone this repository to your host system first
 
 ```bash
 cd ${HOME}
-sudo git clone https://github.com/jterrier84/minipool.git
-cd minipool/Cardano-node-docker
+sudo git clone https://github.com/jterrier84/Cardano-node-docker.git
+cd Cardano-node-docker
 ```  
 
 We will now download the latest official Cardano node configuration files from the IOHK repository and store them on our host system.
@@ -73,7 +73,7 @@ At this point it's time to build the docker image. The image will include:
 3. ScheduledBlocks - Tool to query the scheduled slots for a block production node. (Credits for this tool goes to [SNAKE POOL](https://github.com/asnakep/ScheduledBlocks))
 
 ```bash
-cd ${HOME}/minipool/Cardano-node-docker/dockerfiles
+cd ${HOME}/Cardano-node-docker/dockerfiles
 sudo ./build.sh
 ```
 The process might take some minutes.
@@ -103,7 +103,7 @@ docker rmi f3891eef21e4
 You can now simply start the node with:
 
 ```bash
-cd ${HOME}/minipool/Cardano-node-docker/node
+cd ${HOME}/Cardano-node-docker/node
 sudo ./run-node.sh
 ```
 
