@@ -56,4 +56,5 @@ ENV PATH="/home/cardano/.local/bin:$PATH"
 
 HEALTHCHECK --interval=10s --timeout=60s --start-period=300s --retries=3 CMD curl -f http://localhost:12798/metrics || exit 1
 
+STOPSIGNAL SIGINT
 ENTRYPOINT ["bash", "-c"]

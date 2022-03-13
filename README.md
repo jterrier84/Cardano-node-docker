@@ -1,6 +1,6 @@
 # Cardano Node Docker Image (for ARM64 devices)
 
-In this project you will find the files to build a docker image containing all the needed files to run a Cardano full node.
+In this project you will find the files to build a docker image on Linux containing all the needed files to run a Cardano full node.
 The docker image can run on any arm64 device (such as a RaspberryPi, Mac Mini M1, etc.). It can be configured as a relay or bock production node.
 
 If you are enjoying the content of this project, please consider supporting me by delegating to my stake pool, ticker [MINI1](https://www.adaministake.com) or
@@ -18,7 +18,7 @@ It is therefore recommended for less experienced users.
 * CPU: ARM64 processor min 2 cores at 2GHz or faster.
 * Memory: 12GB of RAM.
 * Storage: 50 GB.
-* OS: Linux, MacOS, Win
+* OS: Linux (recommended Ubuntu)
 * Additional Software: Docker
 * Broadband: 10 Mbps +
 
