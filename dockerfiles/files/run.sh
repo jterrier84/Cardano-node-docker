@@ -19,7 +19,7 @@ sed -i 's+<path_to>/vrf.skey+/home/cardano/pi-pool/.keys/'${SB_VRF_SKEY_PATH}'+'
 ##Start cardano-node in relay mode
 if [ "${NODE_MODE}" = "relay" ]; then
 
-cardano-node ${CARDANO_RTS_OPTS} run \
+exec cardano-node ${CARDANO_RTS_OPTS} run \
     --topology /home/cardano/pi-pool/files/${NETWORK}-topology.json \
     --config /home/cardano/pi-pool/files/${NETWORK}-config.json \
     --database-path /home/cardano/pi-pool/db \
@@ -30,7 +30,7 @@ cardano-node ${CARDANO_RTS_OPTS} run \
 ##Start cardano-node in block production mode
 elif [ "${NODE_MODE}" = "bp" ]; then
 
-cardano-node ${CARDANO_RTS_OPTS} run \
+exec cardano-node ${CARDANO_RTS_OPTS} run \
     --topology /home/cardano/pi-pool/files/${NETWORK}-topology.json \
     --config /home/cardano/pi-pool/files/${NETWORK}-config.json \
     --database-path /home/cardano/pi-pool/db \

@@ -37,5 +37,4 @@ docker run --detach \
     -v ${CN_CONFIG_PATH}:/home/cardano/pi-pool/files  \
     -v ${CN_DB_PATH}:/home/cardano/pi-pool/db \
     -v ${CN_KEY_PATH}:/home/cardano/pi-pool/.keys \
-    ${CNIMAGENAME}:${CNVERSION} \
-    /home/cardano/pi-pool/scripts/run.sh
+    ${CNIMAGENAME}:${CNVERSION}

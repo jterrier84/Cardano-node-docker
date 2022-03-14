@@ -8,11 +8,11 @@ RUN apt-get update \
 
 WORKDIR /cardano-node
 
-##download latest cardano-cli & cardano-node version static build from armada-alliance.com
+## Download latest cardano-cli & cardano-node version static build from armada-alliance.com
 RUN wget -O 1_34_1.zip https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/1_34_1.zip?raw=true \
     && unzip *.zip
 
-##Install libsodium (needed for ScheduledBlocks.py)
+## Install libsodium (needed for ScheduledBlocks.py)
 WORKDIR /build/libsodium
 RUN git clone https://github.com/input-output-hk/libsodium
 RUN cd libsodium && \
@@ -27,10 +27,10 @@ RUN apt-get update \
     && apt-get upgrade -y curl wget zip netbase jq libnuma-dev lsof bc python3-pip git && \
     rm -rf /var/lib/apt/lists/*
 
-## Libsodium refs
+## Copy Libsodium refs from builder image
 COPY --from=builder /usr/local/lib /usr/local/lib
 
-##Create node folders
+## Create node folders
 WORKDIR /home/cardano
 WORKDIR /home/cardano/.local/bin
 WORKDIR /home/cardano/pi-pool/files
@@ -42,11 +42,11 @@ WORKDIR /home/cardano/tmp
 
 COPY --from=builder /cardano-node/cardano-node/cardano-* /home/cardano/.local/bin/
 WORKDIR /home/cardano/pi-pool/scripts
-COPY /files/run.sh /home/cardano/pi-pool/scripts
+##COPY /files/run.sh /home/cardano/pi-pool/scripts
 RUN git clone https://github.com/asnakep/ScheduledBlocks.git
 RUN pip install -r /home/cardano/pi-pool/scripts/ScheduledBlocks/requirements.txt
 
-##download gLiveView from original source
+## Download gLiveView from original source
 RUN wget https://raw.githubusercontent.com/cardano-community/guild-operators/master/scripts/cnode-helper-scripts/env \
     && wget https://raw.githubusercontent.com/cardano-community/guild-operators/master/scripts/cnode-helper-scripts/gLiveView.sh
 RUN chmod +x env
@@ -57,4 +57,8 @@ ENV PATH="/home/cardano/.local/bin:$PATH"
 HEALTHCHECK --interval=10s --timeout=60s --start-period=300s --retries=3 CMD curl -f http://localhost:12798/metrics || exit 1
 
 STOPSIGNAL SIGINT
-ENTRYPOINT ["bash", "-c"]
+
+COPY /files/run.sh /
+
+CMD ["/run.sh"]
+##ENTRYPOINT ["bash", "-c"]
