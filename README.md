@@ -66,6 +66,14 @@ sudo wget -N https://hydra.iohk.io/build/${NODE_BUILD_NUM}/download/1/${NODE_CON
 sudo wget -N https://hydra.iohk.io/build/${NODE_BUILD_NUM}/download/1/${NODE_CONFIG}-topology.json
 ```
 
+Note: The Docker Cardano node will access to the directories /files and /db on the host system. 
+
+The directory /files contains the downloaded Cardano node configuration files.
+
+The /db directory will host the Cardano blockchain once the Docker node is started. It is important that the blockchain data 
+are stored on the host system and not inside the Docker container, otherwise the entire blockchain would be deleted every time 
+the Docker container is removed. Our docker image will manage this automatically.
+
 # 3. Build the Cardano node docker image
 
 At this point it's time to build the docker image. The image will include:
@@ -183,6 +191,12 @@ A stopped container can also be deleted. Once deleted, it can not be started wit
 
 ```bash
 docker rm {CONTAINER ID}
+```
+
+If you like to start the node again, after having removed the docker container, just run the run-node.sh script.
+
+```bash
+sudo ${HOME}/Cardano-node-docker/node/run-node.sh
 ```
 
 ## Monitor the Docker Cardano node with gLiveView
