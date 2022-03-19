@@ -24,7 +24,7 @@ system that has Docker installed. With a Docker image the setup and management o
 
 If you intend to use a Raspberry Pi 8GB RAM for the deployment of this docker image, I highly recommend to follow the Armada Alliance 
 [Server Setup guide](https://docs.armada-alliance.com/learn/stake-pool-guides/pi-pool-tutorial/pi-node-full-guide/server-setup) first. 
-This guide describes how to optimize the Hardware to satisfy the above listed system requirements.  
+This guide describes how to optimize the Hardware in order to meet the above listed system requirements.  
 
 # 1.Install Docker
 
