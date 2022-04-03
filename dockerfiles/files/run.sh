@@ -16,6 +16,8 @@ sed -i 's+PoolId = ""+PoolId = "'${POOLID}'"+' ScheduledBlocks/ScheduledBlocks.p
 sed -i 's+PoolTicker = ""+PoolTicker = "'${POOLTICKER}'"+' ScheduledBlocks/ScheduledBlocks.py
 sed -i 's+<path_to>/vrf.skey+/home/cardano/pi-pool/.keys/'${SB_VRF_SKEY_PATH}'+' ScheduledBlocks/ScheduledBlocks.py
 
+exec tx-submit-service &
+
 ##Start cardano-node in relay mode
 if [ "${NODE_MODE}" = "relay" ]; then
 
@@ -39,6 +41,7 @@ exec cardano-node ${CARDANO_RTS_OPTS} run \
     --port ${PORT} \
     --shelley-kes-key /home/cardano/pi-pool/.keys/*.kes-*.skey \
     --shelley-vrf-key /home/cardano/pi-pool/.keys/*.vrf.skey \
-    --shelley-operational-certificate /home/cardano/pi-pool/.keys/*.opcert
+    --shelley-operational-certificate /home/cardano/pi-pool/.keys/*.opcert &
 
 fi
+

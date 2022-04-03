@@ -5,7 +5,7 @@ set -x
 ##Configuration for relay and block producing node
 CNIMAGENAME="armada/armada-cn"                                   ## Name of the Cardano docker image
 CNVERSION="1.34.1"                                               ## Version of the cardano-node. It must match with the version of the docker image
-CNNETWORK="testnet"                                              ## Use "mainnet" if connecting node to the mainnet
+CNNETWORK="mainnet"                                              ## Use "mainnet" if connecting node to the mainnet
 CNMODE="relay"                                                   ## Use "bp" if you configure the node as block production node
 CNPORT="3001"                                                    ## Define the port of the node
 CNPROMETHEUS_PORT="12799"                                        ## Define the port for the Prometheus metrics
@@ -26,6 +26,7 @@ docker run --detach \
     --restart=always \
     -p ${CNPORT}:${CNPORT} \
     -p ${CNPROMETHEUS_PORT}:12798 \
+    -p 8090:8090 \
     -e NETWORK=${CNNETWORK} \
     -e NODE_MODE=${CNMODE} \
     -e PORT=${CNPORT} \

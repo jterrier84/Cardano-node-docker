@@ -12,6 +12,10 @@ WORKDIR /cardano-node
 RUN wget -O 1_34_1.zip https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/1_34_1.zip?raw=true \
     && unzip *.zip
 
+## Download tx-submit-service
+RUN wget -O 1_33_1.zip https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/1_33_1.zip?raw=true \
+    && unzip 1_33_1.zip -d cardano-node-1.33.1
+
 ## Install libsodium (needed for ScheduledBlocks.py)
 WORKDIR /build/libsodium
 RUN git clone https://github.com/input-output-hk/libsodium
@@ -41,6 +45,8 @@ WORKDIR /home/cardano/git
 WORKDIR /home/cardano/tmp
 
 COPY --from=builder /cardano-node/cardano-node/cardano-* /home/cardano/.local/bin/
+COPY --from=builder /cardano-node/cardano-node-1.33.1/cardano-node/cardano-submit-api /home/cardano/.local/bin/
+
 WORKDIR /home/cardano/pi-pool/scripts
 ##COPY /files/run.sh /home/cardano/pi-pool/scripts
 RUN git clone https://github.com/asnakep/ScheduledBlocks.git
@@ -58,6 +64,7 @@ HEALTHCHECK --interval=10s --timeout=60s --start-period=300s --retries=3 CMD cur
 
 STOPSIGNAL SIGINT
 
+COPY /files/tx-submit-service /home/cardano/.local/bin
 COPY /files/run.sh /
 
 CMD ["/run.sh"]
