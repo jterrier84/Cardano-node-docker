@@ -82,6 +82,7 @@ At this point it's time to build the docker image. The image will include:
 1. cardano-node & cardano-cli v1.34.1 - Cardano binaries to run the node (Download compiled binaries from [Armada Alliance GitHub](https://github.com/armada-alliance/cardano-node-binaries)) 
 2. gLiveView - Monitoring tool for the Cardano node
 3. ScheduledBlocks - Tool to query the scheduled slots for a block production node. (Credits for this tool goes to [SNAKE POOL](https://github.com/asnakep/ScheduledBlocks))
+4. Cardano Submit Transaction API - API to connect with a Cardano wallet (e.g. Nami) to send transactions via your own full node
 
 ```bash
 cd ${HOME}/Cardano-node-docker/dockerfiles
