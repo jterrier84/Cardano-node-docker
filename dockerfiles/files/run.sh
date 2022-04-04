@@ -41,7 +41,7 @@ exec cardano-node ${CARDANO_RTS_OPTS} run \
     --port ${PORT} \
     --shelley-kes-key /home/cardano/pi-pool/.keys/*.kes-*.skey \
     --shelley-vrf-key /home/cardano/pi-pool/.keys/*.vrf.skey \
-    --shelley-operational-certificate /home/cardano/pi-pool/.keys/*.opcert &
+    --shelley-operational-certificate /home/cardano/pi-pool/.keys/*.opcert
 
 fi
 
