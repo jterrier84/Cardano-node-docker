@@ -2,11 +2,11 @@
 
 ##Initialize env settings for gLiveView
 sed -i 's+#CCLI="${HOME}/.cabal/bin/cardano-cli"+CCLI="/home/cardano/.local/bin/cardano-cli"+' env
-sed -i 's+#CNODE_PORT=6000+CNODE_PORT=${PORT}+' env
+sed -i 's+#CNODE_PORT=6000+CNODE_PORT='${PORT}'+' env
 sed -i 's+#CONFIG="${CNODE_HOME}/files/config.json"+CONFIG="/home/cardano/pi-pool/files/'${NETWORK}'-config.json"+' env
 sed -i 's+#SOCKET="${CNODE_HOME}/sockets/node0.socket"+SOCKET="/home/cardano/pi-pool/db/node.socket"+' env
 sed -i 's+#TOPOLOGY="${CNODE_HOME}/files/topology.json"+TOPOLOGY="/home/cardano/pi-pool/files/'${NETWORK}'-topology.json"+' env
-sed -i 's+#LOG_DIR="${CNODE_HOME}/logs"+s+LOG_DIR="/home/cardano/pi-pool/logs"+' env
+sed -i 's+#LOG_DIR="${CNODE_HOME}/logs"+LOG_DIR="/home/cardano/pi-pool/logs"+' env
 sed -i 's+#DB_DIR="${CNODE_HOME}/db"+DB_DIR="/home/cardano/pi-pool/db"+' env
 sed -i 's+#UPDATE_CHECK="Y"+UPDATE_CHECK="N"+' env
 
