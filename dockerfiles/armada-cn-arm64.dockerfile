@@ -50,7 +50,7 @@ COPY --from=builder /cardano-node/cardano-node-1.33.1/cardano-node/cardano-submi
 WORKDIR /home/cardano/pi-pool/scripts
 ##COPY /files/run.sh /home/cardano/pi-pool/scripts
 RUN git clone https://github.com/asnakep/ScheduledBlocks.git
-RUN pip install -r /home/cardano/pi-pool/scripts/ScheduledBlocks/requirements.txt
+RUN pip install -r /home/cardano/pi-pool/scripts/ScheduledBlocks/pip_requirements.txt
 
 ## Download gLiveView from original source
 RUN wget https://raw.githubusercontent.com/cardano-community/guild-operators/master/scripts/cnode-helper-scripts/env \
