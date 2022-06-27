@@ -16,7 +16,7 @@ system that has Docker installed. With a Docker image the setup and management o
 ## System requirements
 
 * CPU: ARM64 processor min 2 cores at 2GHz or faster.
-* Memory: 12GB of RAM.
+* Memory: 16GB of RAM.
 * Storage: 50 GB.
 * OS: Linux (recommended Ubuntu)
 * Additional Software: Docker
@@ -79,7 +79,7 @@ the Docker container is removed. Our docker image will manage this automatically
 
 At this point it's time to build the docker image. The image will include:
 
-1. cardano-node & cardano-cli v1.34.1 - Cardano binaries to run the node (Download compiled binaries from [Armada Alliance GitHub](https://github.com/armada-alliance/cardano-node-binaries)) 
+1. cardano-node & cardano-cli - Cardano binaries to run the node (Download compiled binaries from [Armada Alliance GitHub](https://github.com/armada-alliance/cardano-node-binaries)) 
 2. gLiveView - Monitoring tool for the Cardano node
 3. ScheduledBlocks - Tool to query the scheduled slots for a block production node. (Credits for this tool goes to [SNAKE POOL](https://github.com/asnakep/ScheduledBlocks))
 4. Cardano Submit Transaction API - API to connect with a Cardano wallet (e.g. Nami) to send transactions via your own full node
@@ -127,7 +127,7 @@ Edit the configuration section according to your setup.
 ```bash
 ##Configuration for relay and block producing node
 CNIMAGENAME="armada/armada-cn"                                   ## Name of the Cardano docker image
-CNVERSION="1.34.1"                                               ## Version of the cardano-node. It must match with the version of the docker i>
+CNVERSION="1.35.0"                                               ## Version of the cardano-node. It must match with the version of the docker i>
 CNNETWORK="testnet"                                              ## Use "mainnet" if connecting node to the mainnet
 CNMODE="relay"                                                   ## Use "bp" if you configure the node as block production node
 CNPORT="3001"                                                    ## Define the port of the node
@@ -233,7 +233,7 @@ docker exec -it {CONTAINER ID} python3 /home/cardano/pi-pool/scripts/ScheduledBl
 # Run node in P2P (peer-to-peer) mode
 
 {% hint style="warning" %}
-Although P2P can be enabled on Node version 1.34.1, IOHK does not yet recommend using it because it has not yet been officially released.
+Although P2P can be enabled on Node version 1.35.0, IOHK does not yet recommend using it because it has not yet been officially released.
 {% endhint %}
 
 In order for a node to connect to other peers in the network, a mechanism must be set in place. On Cardano the actual official mechanism
