@@ -9,12 +9,12 @@ RUN apt-get update \
 WORKDIR /cardano-node
 
 ## Download latest cardano-cli & cardano-node version static build from armada-alliance.com
-RUN wget -O 1_34_1.zip https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/1_34_1.zip?raw=true \
+RUN wget -O 1_35_0.zip https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/1_35_0.zip?raw=true \
     && unzip *.zip
 
 ## Download tx-submit-service
-RUN wget -O 1_33_1.zip https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/1_33_1.zip?raw=true \
-    && unzip 1_33_1.zip -d cardano-node-1.33.1
+RUN wget -O 1_35_0.zip https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/1_35_0.zip?raw=true \
+    && unzip 1_35_0.zip -d cardano-node-1.35.0
 
 ## Install libsodium (needed for ScheduledBlocks.py)
 WORKDIR /build/libsodium
@@ -45,7 +45,7 @@ WORKDIR /home/cardano/git
 WORKDIR /home/cardano/tmp
 
 COPY --from=builder /cardano-node/cardano-node/cardano-* /home/cardano/.local/bin/
-COPY --from=builder /cardano-node/cardano-node-1.33.1/cardano-node/cardano-submit-api /home/cardano/.local/bin/
+COPY --from=builder /cardano-node/cardano-node-1.35.0/cardano-node/cardano-submit-api /home/cardano/.local/bin/
 
 WORKDIR /home/cardano/pi-pool/scripts
 ##COPY /files/run.sh /home/cardano/pi-pool/scripts
