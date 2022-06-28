@@ -3,7 +3,7 @@
 set -x
 
 ##Configuration for relay and block producing node
-CNIMAGENAME="armada/armada-cn"                                   ## Name of the Cardano docker image
+CNIMAGENAME="armadaalliance/armada-cn"                                   ## Name of the Cardano docker image
 CNVERSION="1.35.0"                                               ## Version of the cardano-node. It must match with the version of the docker image
 CNNETWORK="mainnet"                                              ## Use "mainnet" if connecting node to the mainnet
 CNMODE="relay"                                                   ## Use "bp" if you configure the node as block production node
