@@ -3,8 +3,7 @@
 In this project you will find the files to build a docker image on Linux containing all the needed files to run a Cardano full node.
 The docker image can run on any arm64 device (such as a RaspberryPi, Mac Mini M1, etc.). It can be configured as a relay or block production node.
 
-If you are enjoying the content of this project, please consider supporting me by delegating to my stake pool, ticker [MINI1](https://www.adaministake.com) or
-donating ₳D₳ to: addr1qygv5fqsfjhfgkx7fhkkegxksx56dsu262vhaxr4mvuukt8uqh7nhjs3pcl98xr2zhmtqk6qkmr4gszxjrs3lnpedqdqyr3jzc
+If you are enjoying the content of this project, please consider supporting me by donating ₳D₳ to: addr1qygv5fqsfjhfgkx7fhkkegxksx56dsu262vhaxr4mvuukt8uqh7nhjs3pcl98xr2zhmtqk6qkmr4gszxjrs3lnpedqdqyr3jzc
 
 ## Why using docker image to run a Cardano node?
 
@@ -23,7 +22,7 @@ system that has Docker installed. With a Docker image the setup and management o
 * Broadband: 10 Mbps +
 
 If you intend to use a Raspberry Pi 8GB RAM for the deployment of this docker image, I highly recommend to follow the Armada Alliance 
-[Server Setup guide](https://docs.armada-alliance.com/learn/stake-pool-guides/pi-pool-tutorial/pi-node-full-guide/server-setup) first. 
+[Server Setup guide](https://armada-alliance.com/docs/stake-pool-guides/pi-pool-tutorial/pi-node-full-guide/server-setup/) first. 
 This guide describes how to optimize the Hardware in order to meet the above listed system requirements.  
 
 # 1.Install Docker
