@@ -9,7 +9,7 @@ RUN apt-get update \
 WORKDIR /cardano-node
 
 ## Download latest cardano-cli, cardano-node tx-submit-service version static build
-RUN wget -O 1_35_4.zip https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/1_35_4.zip?raw=true \
+RUN wget -O 1_35_5.zip https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/1_35_5.zip?raw=true \
     && unzip *.zip
 
 ## Install libsodium (needed for ScheduledBlocks.py)
