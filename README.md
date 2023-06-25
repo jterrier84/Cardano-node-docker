@@ -1,7 +1,7 @@
 # Cardano Node Docker Image (for ARM64 devices) 🐳
 
 In this project you will find the files to build a docker image on Linux containing all the needed files to run a Cardano full node.
-The docker image can run on any arm64 device (such as a RaspberryPi, Mac Mini M1, etc.). It can be configured as a relay or block production node.
+The docker image can run on any arm64 device such as a Mac Mini M1. It can be configured as a relay or block production node.
 
 If you are enjoying the content of this project, please consider supporting me by donating ₳D₳ to: addr1qygv5fqsfjhfgkx7fhkkegxksx56dsu262vhaxr4mvuukt8uqh7nhjs3pcl98xr2zhmtqk6qkmr4gszxjrs3lnpedqdqyr3jzc
 
@@ -57,12 +57,14 @@ sudo mkdir node/db
 sudo mkdir node/files
 cd node/files
 export NODE_CONFIG="testnet"
-export NODE_BUILD_NUM=$(curl https://hydra.iohk.io/job/Cardano/iohk-nix/cardano-deployment/latest-finished/download/1/index.html | grep -e "build" | sed 's/.*build\/\([0-9]*\)\/download.*/\1/g') 
-sudo wget -N https://hydra.iohk.io/build/${NODE_BUILD_NUM}/download/1/${NODE_CONFIG}-config.json
-sudo wget -N https://hydra.iohk.io/build/${NODE_BUILD_NUM}/download/1/${NODE_CONFIG}-byron-genesis.json
-sudo wget -N https://hydra.iohk.io/build/${NODE_BUILD_NUM}/download/1/${NODE_CONFIG}-shelley-genesis.json
-sudo wget -N https://hydra.iohk.io/build/${NODE_BUILD_NUM}/download/1/${NODE_CONFIG}-alonzo-genesis.json
-sudo wget -N https://hydra.iohk.io/build/${NODE_BUILD_NUM}/download/1/${NODE_CONFIG}-topology.json
+sudo curl -O -J https://book.world.dev.cardano.org/environments/mainnet/config.json && sudo mv config.json ${NODE_CONFIG}-config.json
+sudo curl -O -J https://book.world.dev.cardano.org/environments/mainnet/db-sync-config.json
+sudo curl -O -J https://book.world.dev.cardano.org/environments/mainnet/submit-api-config.json
+sudo curl -O -J https://book.world.dev.cardano.org/environments/mainnet/topology.json && sudo mv topology.json ${NODE_CONFIG}-topology.json
+sudo curl -O -J https://book.world.dev.cardano.org/environments/mainnet/byron-genesis.json
+sudo curl -O -J https://book.world.dev.cardano.org/environments/mainnet/shelley-genesis.json
+sudo curl -O -J https://book.world.dev.cardano.org/environments/mainnet/alonzo-genesis.json
+sudo curl -O -J https://book.world.dev.cardano.org/environments/mainnet/conway-genesis.json
 sudo wget -O tx-submit-mainnet-config.yaml https://raw.githubusercontent.com/input-output-hk/cardano-node/master/cardano-submit-api/config/tx-submit-mainnet-config.yaml
 ```
 
@@ -99,7 +101,7 @@ You should see your Cardano node docker image in the list, e.g.
 
 ```bash
 REPOSITORY              TAG            IMAGE ID       CREATED          SIZE
-armada/armada-cn        1.34.1         da4414775ce6   37 seconds ago   619MB
+armada/armada-cn        8.1.1          da4414775ce6   37 seconds ago   740MB
 <none>                  <none>         f3891eef21e4   3 minutes ago    1.09GB
 ```
 
@@ -126,7 +128,7 @@ Edit the configuration section according to your setup.
 ```bash
 ##Configuration for relay and block producing node
 CNIMAGENAME="armada/armada-cn"                                   ## Name of the Cardano docker image
-CNVERSION="1.35.0"                                               ## Version of the cardano-node. It must match with the version of the docker i>
+CNVERSION="8.1.1"                                               ## Version of the cardano-node. It must match with the version of the docker i>
 CNNETWORK="testnet"                                              ## Use "mainnet" if connecting node to the mainnet
 CNMODE="relay"                                                   ## Use "bp" if you configure the node as block production node
 CNPORT="3001"                                                    ## Define the port of the node
@@ -163,7 +165,7 @@ If the docker node started successfully, you might see something like this:
 
 ```bash
 CONTAINER ID   IMAGE                     COMMAND                  CREATED          STATUS                    PORTS                                                                                      NAMES
-fed0cfbf7d86   armada/armada-cn:1.34.1   "bash -c /home/carda…"   12 seconds ago   Up 10 seconds (healthy)   0.0.0.0:3001->3001/tcp, :::3001->3001/tcp, 0.0.0.0:12799->12798/tcp, :::12799->12798/tcp   cardano-node-testnet-1.34.1
+fed0cfbf7d86   armada/armada-cn:8.1.1   "bash -c /home/carda…"   12 seconds ago   Up 10 seconds (healthy)   0.0.0.0:3001->3001/tcp, :::3001->3001/tcp, 0.0.0.0:12799->12798/tcp, :::12799->12798/tcp   cardano-node-testnet-1.34.1
 ```
 
 You can also check the logs of the running cardano-node:
@@ -210,116 +212,27 @@ docker exec -it {CONTAINER ID} /home/cardano/pi-pool/scripts/gLiveView.sh
 
 ## Check the scheduled slots of the block production node
 
-Our Docker image contains the ScheduledBlocks python script from [SNAKE pool](https://github.com/asnakep/ScheduledBlocks). This tool allows to
+Our Docker image contains the YaLL python script from [SNAKE pool](https://github.com/asnakep/YaLL.git). This tool allows to
 query the blockchain for the scheduled slots for your block production node.
 
 Before using the script, make sure that the right configurations are set in our shell script run-node.sh. Set the following variables:
 
 ```bash
-CN_BF_ID="mainnetd9PBzlK7KB7wWko8NTKUwJIsHfvEKNaV"               ## Your blockfrost.io project ID (for ScheduledBlock script)
-CN_POOL_ID="c3e7025ebae638e994c149e5703e82619b31897c9e1d64fc684f81c2"   ## Your stake pool ID (for ScheduledBlock script)
-CN_POOL_TICKER="MINI1"                                           ## Your pool ticker (for ScheduledBlock script)
-CN_VRF_SKEY_PATH="scheduledblocks.vrf.skey"                      ## Name of the vrf.skey file. It must be located in the same directory as CN_KEY_PATH (for ScheduledBlock script)
+CN_POOL_ID="c3e7025ebae638e994c149e5703e82619b31897c9e1d64fc684f81c2"   ## Your stake pool ID (for YaLL script)
+CN_POOL_TICKER="MINI1"                                                  ## Your pool ticker (for YaLL script)
+CN_VRF_SKEY_PATH="YaLL.vrf.skey"                                        ## Name of the vrf.skey file. It must be located in the same directory as CN_KEY_PATH (for YaLL script)
 CN_KEY_PATH="/home/julienterrier/Cardano-node-docker/node/files/.keys"  ## Path to the folder where the OP certificate and keys are stored on the host system
 ```
 
-Start the ScheduledBlocks.py script and follow the instructions on the terminal:
+Start the YaLL.py script and follow the instructions on the terminal:
 
 ```bash
-docker exec -it {CONTAINER ID} python3 /home/cardano/pi-pool/scripts/ScheduledBlocks/ScheduledBlocks.py
+docker exec -it {CONTAINER ID} python3 /home/cardano/pi-pool/scripts/YaLL/YaLL.py
 ```
 
 # Run node in P2P (peer-to-peer) mode
 
-{% hint style="warning" %}
-Although P2P can be enabled on Node version 1.35.0, IOHK does not yet recommend using it because it has not yet been officially released.
-{% endhint %}
-
-In order for a node to connect to other peers in the network, a mechanism must be set in place. On Cardano the actual official mechanism
-forsees the use of a static network topology file, where the IP adress and port number of known peers can be configured. To automate this process, a tool
-called [TopologyUpdater](https://github.com/cardano-community/guild-operators/blob/alpha/docs/Scripts/topologyupdater.md) exists. IOHK is working on a more decentralized mechanism, called [peer-to-peer networking.](https://docs.cardano.org/explore-cardano/cardano-network/p2p-networking)
-The P2P networking doesn't require the configuration of a static network topology file anymore. 
-
-To configure P2P on a relay node, we need to make some changes in the *-topology.json and *-config.json files:
-
-```bash
-cd ${HOME}/Cardano-node-docker/node/files
-sed -i 's+"TurnOnLogging": true,+"TurnOnLogging": true,\n  "TestEnableDevelopmentNetworkProtocols": true,\n  "EnableP2P": true,\n  "MaxConcurrencyBulkSync": 2,\n  "MaxConcurrencyDeadline": 4,\n  "TargetNumberOfRootPeers": 50,\n  "TargetNumberOfKnownPeers": 50,\n  "TargetNumberOfEstablishedPeers": 25,\n  "TargetNumberOfActivePeers": 10,+' *-config.json
-```
- 
-Open the *-topology.json file with the nano editor and replace the entire content with:
-
-```bash
-sudo nano testnet-topology.json  ##use mainnet-topology.json for mainnet
-```
-
-Don't forget to enter the IP and Port of your block production node in the respective lines below:
-
-```bash
-{
-  "LocalRoots": {
-    "groups": [
-      {
-        "localRoots": {
-          "accessPoints": [
-            {
-              "address": "[IP block Production node]",
-              "port": [Port block production node]
-            }
-          ],
-          "advertise": false
-        },
-        "valency": 1
-      }
-    ]
-  },
-  "PublicRoots": [
-    {
-      "publicRoots" : {
-        "accessPoints": [
-          {
-            "address": "relays-new.cardano-mainnet.iohk.io",
-            "port": 3001
-          }
-        ],
-        "advertise": true
-      },
-      "valency": 1
-    }
-  ],
-  "useLedgerAfterSlot": 0
-} 
-``` 
-
-To configure P2P on the block production node, the steps are the same as above, only the content of the *-topology.json is different:
-
-```bash
-{
-  "LocalRoots": {
-    "groups": [
-      {
-        "localRoots": {
-          "accessPoints": [
-            {
-              "address": "[IP Relay 1]",
-              "port": [Port Relay 1]
-            },
-            {
-              "address": "[IP Relay 2]",
-              "port": [Port Relay 2]
-            }
-          ],
-          "advertise": false
-        },
-        "valency": 2
-      }
-    ]
-  },
-  "PublicRoots": []
-}
-```
-
-Your nodes are now ready to run in P2P mode.
+To run your node in the P2P mode, please follow the instructions from the [Armada-Alliance Docs page](https://armada-alliance.com/docs/stake-pool-guides/p2p-networking)
 
 
 
