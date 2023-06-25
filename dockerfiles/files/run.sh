@@ -10,11 +10,10 @@ sed -i 's+#LOG_DIR="${CNODE_HOME}/logs"+LOG_DIR="/home/cardano/pi-pool/logs"+' e
 sed -i 's+#DB_DIR="${CNODE_HOME}/db"+DB_DIR="/home/cardano/pi-pool/db"+' env
 sed -i 's+#UPDATE_CHECK="Y"+UPDATE_CHECK="N"+' env
 
-##Initialize env settings for ScheduledBlocks
-sed -i 's+BlockFrostId = ""+BlockFrostId = "'${BFID}'"+' ScheduledBlocks/ScheduledBlocks.py
-sed -i 's+PoolId = ""+PoolId = "'${POOLID}'"+' ScheduledBlocks/ScheduledBlocks.py
-sed -i 's+PoolTicker = ""+PoolTicker = "'${POOLTICKER}'"+' ScheduledBlocks/ScheduledBlocks.py
-sed -i 's+<path_to>/vrf.skey+/home/cardano/pi-pool/.keys/'${SB_VRF_SKEY_PATH}'+' ScheduledBlocks/ScheduledBlocks.py
+##Initialize env settings for YaLL
+sed -i 's+PoolId = ""+PoolId = "'${POOLID}'"+' YaLL/YaLL.py
+sed -i 's+PoolTicker = ""+PoolTicker = "'${POOLTICKER}'"+' YaLL/YaLL.py
+sed -i 's+<path_to>/vrf.skey+/home/cardano/pi-pool/.keys/'${SB_VRF_SKEY_PATH}'+' YaLL/YaLL.py
 
 exec tx-submit-service &
 

@@ -9,7 +9,7 @@ RUN apt-get update \
 WORKDIR /cardano-node
 
 ## Download latest cardano-cli, cardano-node tx-submit-service version static build
-RUN wget -O 1_35_7.zip https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/1_35_7.zip?raw=true \
+RUN wget -O 8_1_1.zip https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/8_1_1.zip?raw=true \
     && unzip *.zip
 
 ## Install libsodium (needed for ScheduledBlocks.py)
@@ -43,9 +43,9 @@ WORKDIR /home/cardano/tmp
 COPY --from=builder /cardano-node/cardano-node/* /home/cardano/.local/bin/
 
 WORKDIR /home/cardano/pi-pool/scripts
-##COPY /files/run.sh /home/cardano/pi-pool/scripts
-RUN git clone https://github.com/asnakep/ScheduledBlocks.git
-RUN pip install -r /home/cardano/pi-pool/scripts/ScheduledBlocks/pip_requirements.txt
+COPY /files/run.sh /home/cardano/pi-pool/scripts
+RUN git clone https://github.com/asnakep/YaLL.git
+RUN pip install -r /home/cardano/pi-pool/scripts/YaLL/pip_requirements.txt
 
 ## Download gLiveView from original source
 RUN wget https://raw.githubusercontent.com/cardano-community/guild-operators/master/scripts/cnode-helper-scripts/env \
