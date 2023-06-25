@@ -56,7 +56,7 @@ rather than have them stored inside the Docker container. The Docker image will 
 sudo mkdir node/db
 sudo mkdir node/files
 cd node/files
-export NODE_CONFIG="testnet"
+export NODE_CONFIG="preprod"
 sudo curl -O -J https://book.world.dev.cardano.org/environments/${NODE_CONFIG}/config.json && sudo mv config.json ${NODE_CONFIG}-config.json
 sudo curl -O -J https://book.world.dev.cardano.org/environments/${NODE_CONFIG}/db-sync-config.json
 sudo curl -O -J https://book.world.dev.cardano.org/environments/${NODE_CONFIG}/submit-api-config.json
