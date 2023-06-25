@@ -46,8 +46,8 @@ cd Cardano-node-docker
 
 We will now download the latest official Cardano node configuration files from the IOHK repository and store them on our host system.
 
-For the sake of this tutorial we will download and set up the configuration files for the Cardano testnet. If you need the files for the mainnet
-just replace "testnet" with "mainnet" here below.
+For the sake of this tutorial we will download and set up the configuration files for the Cardano testnet/preprod. If you need the files for the mainnet
+just replace "preprod" with "mainnet" here below.
  
 Note: As the configuration files might require modifications over time, it is way more practical to have them stored on the host, 
 rather than have them stored inside the Docker container. The Docker image will then access to these files via file sharing.
@@ -57,14 +57,14 @@ sudo mkdir node/db
 sudo mkdir node/files
 cd node/files
 export NODE_CONFIG="testnet"
-sudo curl -O -J https://book.world.dev.cardano.org/environments/mainnet/config.json && sudo mv config.json ${NODE_CONFIG}-config.json
-sudo curl -O -J https://book.world.dev.cardano.org/environments/mainnet/db-sync-config.json
-sudo curl -O -J https://book.world.dev.cardano.org/environments/mainnet/submit-api-config.json
-sudo curl -O -J https://book.world.dev.cardano.org/environments/mainnet/topology.json && sudo mv topology.json ${NODE_CONFIG}-topology.json
-sudo curl -O -J https://book.world.dev.cardano.org/environments/mainnet/byron-genesis.json
-sudo curl -O -J https://book.world.dev.cardano.org/environments/mainnet/shelley-genesis.json
-sudo curl -O -J https://book.world.dev.cardano.org/environments/mainnet/alonzo-genesis.json
-sudo curl -O -J https://book.world.dev.cardano.org/environments/mainnet/conway-genesis.json
+sudo curl -O -J https://book.world.dev.cardano.org/environments/${NODE_CONFIG}/config.json && sudo mv config.json ${NODE_CONFIG}-config.json
+sudo curl -O -J https://book.world.dev.cardano.org/environments/${NODE_CONFIG}/db-sync-config.json
+sudo curl -O -J https://book.world.dev.cardano.org/environments/${NODE_CONFIG}/submit-api-config.json
+sudo curl -O -J https://book.world.dev.cardano.org/environments/${NODE_CONFIG}/topology.json && sudo mv topology.json ${NODE_CONFIG}-topology.json
+sudo curl -O -J https://book.world.dev.cardano.org/environments/${NODE_CONFIG}/byron-genesis.json
+sudo curl -O -J https://book.world.dev.cardano.org/environments/${NODE_CONFIG}/shelley-genesis.json
+sudo curl -O -J https://book.world.dev.cardano.org/environments/${NODE_CONFIG}/alonzo-genesis.json
+sudo curl -O -J https://book.world.dev.cardano.org/environments/${NODE_CONFIG}/conway-genesis.json
 sudo wget -O tx-submit-mainnet-config.yaml https://raw.githubusercontent.com/input-output-hk/cardano-node/master/cardano-submit-api/config/tx-submit-mainnet-config.yaml
 ```
 
