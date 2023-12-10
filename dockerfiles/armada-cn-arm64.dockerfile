@@ -9,8 +9,10 @@ RUN apt-get update \
 WORKDIR /cardano-node
 
 ## Download latest cardano-cli, cardano-node tx-submit-service version static build
-RUN wget -O 8_1_1.zip https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/8_1_1.zip?raw=true \
-    && unzip *.zip
+RUN wget -O cardano-8_7_2-aarch64-static-musl-ghc_963.zip https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/cardano-8_7_2-aarch64-static-musl-ghc_963.zip?raw=true \
+    && unzip cardano-8_7_2-aarch64-static-musl-ghc_963.zip
+RUN wget -O cardano-submit-api-3_2_1.zip https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/cardano-submit-api/cardano-submit-api-3_2_1.zip?raw=true \
+    && unzip cardano-submit-api-3_2_1.zip
 
 ## Install libsodium (needed for ScheduledBlocks.py)
 WORKDIR /build/libsodium
@@ -40,12 +42,13 @@ WORKDIR /home/cardano/pi-pool/.keys
 WORKDIR /home/cardano/git
 WORKDIR /home/cardano/tmp
 
-COPY --from=builder /cardano-node/cardano-node/* /home/cardano/.local/bin/
+COPY --from=builder /cardano-node/cardano-8_7_2-aarch64-static-musl-ghc_963/* /home/cardano/.local/bin/
+COPY --from=builder /cardano-node/cardano-submit-api /home/cardano/.local/bin/
 
 WORKDIR /home/cardano/pi-pool/scripts
 COPY /files/run.sh /home/cardano/pi-pool/scripts
-RUN git clone https://github.com/asnakep/YaLL.git
-RUN pip install -r /home/cardano/pi-pool/scripts/YaLL/pip_requirements.txt
+RUN git clone https://github.com/asnakep/poolLeaderLogs.git
+RUN pip install -r /home/cardano/pi-pool/scripts/poolLeaderLogs/pip_requirements.txt
 
 ## Download gLiveView from original source
 RUN wget https://raw.githubusercontent.com/cardano-community/guild-operators/master/scripts/cnode-helper-scripts/env \

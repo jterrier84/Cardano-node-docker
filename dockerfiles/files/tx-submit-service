@@ -3,6 +3,6 @@
 cardano-submit-api \
   --socket-path /home/cardano/pi-pool/db/node.socket \
   --port 8090 \
-  --config /home/cardano/pi-pool/files/tx-submit-${NETWORK}-config.yaml \
+  --config /home/cardano/pi-pool/files/tx-submit-mainnet-config.yaml \
   --listen-address 0.0.0.0 \
-  --${NETWORK}
+  --mainnet

@@ -11,9 +11,9 @@ sed -i 's+#DB_DIR="${CNODE_HOME}/db"+DB_DIR="/home/cardano/pi-pool/db"+' env
 sed -i 's+#UPDATE_CHECK="Y"+UPDATE_CHECK="N"+' env
 
 ##Initialize env settings for YaLL
-sed -i 's+PoolId = ""+PoolId = "'${POOLID}'"+' YaLL/YaLL.py
-sed -i 's+PoolTicker = ""+PoolTicker = "'${POOLTICKER}'"+' YaLL/YaLL.py
-sed -i 's+<path_to>/vrf.skey+/home/cardano/pi-pool/.keys/'${SB_VRF_SKEY_PATH}'+' YaLL/YaLL.py
+sed -i 's+PoolId = ""+PoolId = "'${POOLID}'"+' poolLeaderLogs/poolLeaderLogs.py
+sed -i 's+PoolTicker = ""+PoolTicker = "'${POOLTICKER}'"+' poolLeaderLogs/poolLeaderLogs.py
+sed -i 's+<path_to>/vrf.skey+/home/cardano/pi-pool/.keys/'${SB_VRF_SKEY_PATH}'+' poolLeaderLogs/poolLeaderLogs.py
 
 exec tx-submit-service &
 
