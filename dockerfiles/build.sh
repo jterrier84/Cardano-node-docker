@@ -3,7 +3,7 @@
 set -x
 
 ## Configuration paramenters
-CNVERSION="8.9.1"        			## Version of the cardano-node. (Note: Must match the version downloaded in the dockerbuild file)
+CNVERSION="8.9.3"        			## Version of the cardano-node. (Note: Must match the version downloaded in the dockerbuild file)
 CNCONT_NAME="armadaalliance"			## Define the name of your docker container
 
 
