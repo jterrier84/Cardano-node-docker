@@ -128,7 +128,7 @@ Edit the configuration section according to your setup.
 ```bash
 ##Configuration for relay and block producing node
 CNIMAGENAME="armada/armada-cn"                                   ## Name of the Cardano docker image
-CNVERSION="8.9.1"                                               ## Version of the cardano-node. It must match with the version of the docker i>
+CNVERSION="9.1.1"                                               ## Version of the cardano-node. It must match with the version of the docker i>
 CNNETWORK="testnet"                                              ## Use "mainnet" if connecting node to the mainnet
 CNMODE="relay"                                                   ## Use "bp" if you configure the node as block production node
 CNPORT="3001"                                                    ## Define the port of the node
