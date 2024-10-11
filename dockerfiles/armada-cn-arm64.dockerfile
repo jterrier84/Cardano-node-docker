@@ -9,6 +9,7 @@ RUN apt-get update \
 WORKDIR /cardano-node
 
 ## Download latest cardano-cli, cardano-node tx-submit-service version static build
+
 RUN wget -O cardano-9_1_1-aarch64-static-musl-ghc_966.tar.zst \
 https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/cardano-9_1_1-aarch64-static-musl-ghc_966.tar.zst?raw=true \
 && tar -I zstd -xvf cardano-9_1_1-aarch64-static-musl-ghc_966.tar.zst
@@ -44,7 +45,6 @@ WORKDIR /home/cardano/tmp
 
 COPY --from=builder /cardano-node/cardano-9_1_1-aarch64-static-musl-ghc_966/* /home/cardano/.local/bin/
 
-
 WORKDIR /home/cardano/pi-pool/scripts
 COPY /files/run.sh /home/cardano/pi-pool/scripts
 RUN git clone https://github.com/asnakep/poolLeaderLogs.git
@@ -66,4 +66,3 @@ COPY /files/tx-submit-service /home/cardano/.local/bin
 COPY /files/run.sh /
 
 CMD ["/run.sh"]
-##ENTRYPOINT ["bash", "-c"]
