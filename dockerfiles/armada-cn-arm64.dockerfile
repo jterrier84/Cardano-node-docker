@@ -1,21 +1,19 @@
-FROM ubuntu:20.04 as builder
+FROM ubuntu:22.04 as builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
     && apt-get upgrade -y zip wget automake build-essential pkg-config libffi-dev libgmp-dev libssl-dev libtinfo-dev libsystemd-dev \
-    zlib1g-dev make g++ tmux git jq curl libncursesw5 libtool autoconf llvm libnuma-dev
+    zlib1g-dev make g++ tmux git jq curl libncursesw5 libtool autoconf llvm libnuma-dev xz-utils zstd
 
 WORKDIR /cardano-node
 
 ## Download latest cardano-cli, cardano-node tx-submit-service version static build
-RUN wget -O cardano-8_9_3-aarch64-static-musl-ghc_964.tar.zst https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/cardano-8_9_3-aarch64-static-musl-ghc_964.tar.zst?raw=true \
-    && apt-get install -y zstd \
-    && zstd -d cardano-8_9_3-aarch64-static-musl-ghc_964.tar.zst \
-    && tar -xvf cardano-8_9_3-aarch64-static-musl-ghc_964.tar
 
-RUN wget -O cardano-submit-api-3_2_2.zip https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/cardano-submit-api/cardano-submit-api-3_2_2.zip?raw=true \
-    && unzip cardano-submit-api-3_2_2.zip
+RUN wget -O cardano-9_1_1-aarch64-static-musl-ghc_966.tar.zst \
+https://github.com/armada-alliance/cardano-node-binaries/blob/main/static-binaries/cardano-9_1_1-aarch64-static-musl-ghc_966.tar.zst?raw=true \
+&& tar -I zstd -xvf cardano-9_1_1-aarch64-static-musl-ghc_966.tar.zst
+
 
 ## Install libsodium (needed for ScheduledBlocks.py)
 WORKDIR /build/libsodium
@@ -24,7 +22,7 @@ RUN cd libsodium && \
     git checkout 66f017f1 && \
     ./autogen.sh && ./configure && make && make install
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -45,8 +43,7 @@ WORKDIR /home/cardano/pi-pool/.keys
 WORKDIR /home/cardano/git
 WORKDIR /home/cardano/tmp
 
-COPY --from=builder /cardano-node/cardano-8_9_3-aarch64-static-musl-ghc_964/* /home/cardano/.local/bin/
-COPY --from=builder /cardano-node/cardano-submit-api /home/cardano/.local/bin/
+COPY --from=builder /cardano-node/cardano-9_1_1-aarch64-static-musl-ghc_966/* /home/cardano/.local/bin/
 
 WORKDIR /home/cardano/pi-pool/scripts
 COPY /files/run.sh /home/cardano/pi-pool/scripts
